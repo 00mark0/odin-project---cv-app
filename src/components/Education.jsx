@@ -19,9 +19,9 @@ function Education() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    setTitle(localStorage.getItem("title") || "Finansijski Tehnicar");
-    setSchool(localStorage.getItem("school") || "Macvanksa srednja skola");
-    setYear(localStorage.getItem("year") || "2014 - 2018");
+    setTitle(localStorage.getItem("title") || "Economics Technician");
+    setSchool(localStorage.getItem("school") || "Macvanska Srednja Skola");
+    setYear(localStorage.getItem("year") || "2015 - 2019");
     setLocation(localStorage.getItem("location") || "Bogatić, Serbia");
   }, []);
 

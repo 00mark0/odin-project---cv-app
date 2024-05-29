@@ -15,7 +15,7 @@ function Skills() {
     JSON.parse(localStorage.getItem("skillsIsVisible")) || true
   );
   const [skills, setSkills] = useState(
-    JSON.parse(localStorage.getItem("skills")) || ["", ""]
+    JSON.parse(localStorage.getItem("skills")) || [[""], [""]]
   );
   const [newSkill, setNewSkill] = useState(["", ""]);
   const [showInput, setShowInput] = useState([false, false]);
