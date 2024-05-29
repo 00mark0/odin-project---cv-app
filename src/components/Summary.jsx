@@ -29,9 +29,11 @@ function Summary() {
   };
 
   return isVisible ? (
-    <section id="summary" className="flex">
-      <h2 className="font-bold text-green-700 text-2xl mt-4 mr-20">Summary</h2>
-      <div className="border-l border-black m-3 p-3">
+    <section id="summary" className="grid grid-cols-5 gap-4 h-auto py-4">
+      <h2 className="font-bold text-green-700 text-2xl col-span-3 lg:col-span-1">
+        Summary
+      </h2>
+      <div className="border-l border-black col-span-4 px-3">
         {isEditing ? (
           <form onSubmit={handleSubmit}>
             <textarea
@@ -44,7 +46,7 @@ function Summary() {
             </button>
           </form>
         ) : (
-          <p className="mb-3">{summary}</p>
+          <p className="mb-3 w-full">{summary}</p>
         )}
         {!isPrinting && !isEditing && (
           <button className="mr-2" onClick={() => setIsEditing(true)}>

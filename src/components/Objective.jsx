@@ -28,11 +28,11 @@ function Objective() {
   }, [isVisible, paragraph1, paragraph2]);
 
   return isVisible ? (
-    <section id="objective" className="flex">
-      <h2 className="font-bold text-green-700 text-2xl mt-4 mr-20">
+    <section id="objective" className="grid grid-cols-5 gap-4 h-auto py-4">
+      <h2 className="font-bold text-green-700 text-2xl col-span-3 lg:col-span-1">
         Career Objective
       </h2>
-      <div className="border-l border-black m-3 p-3">
+      <div className="border-l border-black col-span-4 px-3">
         {isEditing ? (
           <textarea
             value={paragraph1}
