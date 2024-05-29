@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Info from "./components/Info";
 import Summary from "./components/Summary";
+import Objective from "./components/Objective";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -35,6 +36,7 @@ function App() {
             <Info />
             <hr />
             <Summary />
+            <Objective />
           </div>
           <button className="ml-10" onClick={printDocument}>
             Download as PDF

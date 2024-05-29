@@ -68,7 +68,7 @@ function Info() {
             value={job}
             onChange={(e) => setJob(e.target.value)}
             onClick={(e) => e.preventDefault()}
-            className="text-2xl border border-black w-64 md:w-96 text-green-700 font-bold rounded-md "
+            className="text-2xl border border-black w-64 md:w-96 text-green-700 font-bold rounded-md"
           />
         ) : (
           <h2 className="font-bold text-green-700 text-2xl">{job}</h2>
