@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelopeSquare,
@@ -6,6 +6,7 @@ import {
   faEdit,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
+import { PrintContext } from "../App";
 
 function Info() {
   const [isEditing, setIsEditing] = useState(false);
@@ -13,6 +14,7 @@ function Info() {
   const [job, setJob] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const isPrinting = useContext(PrintContext);
 
   useEffect(() => {
     const savedName = localStorage.getItem("name");
@@ -47,8 +49,8 @@ function Info() {
   };
 
   return (
-    <section id="info" className="text-start border-b border-black p-10">
-      <div className="flex flex-col mb-5 gap-1">
+    <section id="info" className="text-start border-b border-black mt-5 pb-10">
+      <div className="flex flex-col mb-5">
         {isEditing ? (
           <input
             type="text"
@@ -75,18 +77,27 @@ function Info() {
 
       <ul className="flex flex-col gap-7 md:flex-row md:gap-14">
         <li>
-          <a href={isEditing ? "" : `mailto:${email}`}>
-            <FontAwesomeIcon
-              icon={faEnvelopeSquare}
-              className="text-green-700"
-            />
+          <a
+            href={isEditing ? "" : `mailto:${email}`}
+            className="flex items-center"
+          >
+            {isPrinting ? (
+              <span role="img" aria-label="Envelope emoji">
+                📧
+              </span>
+            ) : (
+              <FontAwesomeIcon
+                icon={faEnvelopeSquare}
+                className="text-green-700"
+              />
+            )}
             {isEditing ? (
               <input
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onClick={(e) => e.preventDefault()}
-                className="border border-black rounded-md"
+                className="border border-black rounded-md ml-1"
               />
             ) : (
               <span className="ml-1">{email}</span>
@@ -94,15 +105,27 @@ function Info() {
           </a>
         </li>
         <li>
-          <a href={isEditing ? "" : `tel:${phone}`}>
-            <FontAwesomeIcon icon={faPhoneSquare} className="text-green-700" />
+          <a
+            href={isEditing ? "" : `tel:${phone}`}
+            className="flex items-center"
+          >
+            {isPrinting ? (
+              <span role="img" aria-label="Phone emoji">
+                📞
+              </span>
+            ) : (
+              <FontAwesomeIcon
+                icon={faPhoneSquare}
+                className="text-green-700"
+              />
+            )}
             {isEditing ? (
               <input
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(formatPhone(e.target.value))}
                 onClick={(e) => e.preventDefault()}
-                className="border border-black rounded-md"
+                className="border border-black rounded-md ml-1"
               />
             ) : (
               <span className="ml-1">{formatPhone(phone)}</span>
@@ -115,9 +138,11 @@ function Info() {
           <FontAwesomeIcon icon={faCheck} />
         </button>
       ) : (
-        <button onClick={() => setIsEditing(true)} className="mt-3">
-          <FontAwesomeIcon icon={faEdit} />
-        </button>
+        !isPrinting && (
+          <button onClick={() => setIsEditing(true)} className="mt-3">
+            <FontAwesomeIcon icon={faEdit} />
+          </button>
+        )
       )}
     </section>
   );

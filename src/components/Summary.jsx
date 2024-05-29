@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
@@ -6,11 +6,13 @@ import {
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
+import { PrintContext } from "../App";
 
 function Summary() {
   const [isEditing, setIsEditing] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [summary, setSummary] = useState("");
+  const isPrinting = useContext(PrintContext);
 
   useEffect(() => {
     const savedSummary = localStorage.getItem("summary");
@@ -27,36 +29,41 @@ function Summary() {
   };
 
   return isVisible ? (
-    <section id="summary">
-      <h2>Summary</h2>
-      <div>
+    <section id="summary" className="flex">
+      <h2 className="font-bold text-green-700 text-2xl mt-4 mr-20">Summary</h2>
+      <div className="border-l border-black m-3 p-3">
         {isEditing ? (
           <form onSubmit={handleSubmit}>
             <textarea
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
+              className="border border-black w-28 h-52 md:w-96 rounded-md p-2"
             />
-            <button type="submit">
+            <button type="submit" className="md:ml-3">
               <FontAwesomeIcon icon={faCheck} />
             </button>
           </form>
         ) : (
-          <p>{summary}</p>
+          <p className="mb-3">{summary}</p>
         )}
-        {!isEditing && (
-          <button onClick={() => setIsEditing(true)}>
+        {!isPrinting && !isEditing && (
+          <button className="mr-2" onClick={() => setIsEditing(true)}>
             <FontAwesomeIcon icon={faEdit} />
           </button>
         )}
-        <button onClick={() => setIsVisible(false)}>
-          <FontAwesomeIcon icon={faEyeSlash} />
-        </button>
+        {!isPrinting && (
+          <button onClick={() => setIsVisible(false)}>
+            <FontAwesomeIcon icon={faEyeSlash} />
+          </button>
+        )}
       </div>
     </section>
   ) : (
-    <button onClick={() => setIsVisible(true)}>
-      <FontAwesomeIcon icon={faEye} />
-    </button>
+    !isPrinting && (
+      <button onClick={() => setIsVisible(true)}>
+        <FontAwesomeIcon icon={faEye} />
+      </button>
+    )
   );
 }
 
