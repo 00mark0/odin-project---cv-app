@@ -32,7 +32,7 @@ function App() {
 
         for (let i = 0; i < totalPDFPages; i++) {
           if (i !== 0) pdf.addPage();
-          const srcY = i * pdfHeightMM;
+          const srcY = i * pdfHeightMM - 10; // adjust this value to avoid cutting off content
           pdf.addImage(
             imgData,
             "PNG",
