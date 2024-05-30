@@ -17,16 +17,16 @@ function Courses() {
   const [courses, setCourses] = useState(
     JSON.parse(localStorage.getItem("courses")) || [
       {
-        title: "Certified Web Designer",
-        institution: "ITAcademy by LINKgroup",
-        period: "November 2019 - July 2020",
-        location: "On-site - Belgrade, Serbia",
+        title: "",
+        institution: "",
+        period: "",
+        location: "",
       },
       {
-        title: "Certified Front-end JavaScript Web Developer",
-        institution: "ITAcademy by LINKgroup",
-        period: "November 2020 - July 2021",
-        location: "Remote",
+        title: "",
+        institution: "",
+        period: "",
+        location: "",
       },
     ]
   );
@@ -37,6 +37,11 @@ function Courses() {
   }, [courses]);
 
   const handleSave = (index, title, institution, period, location) => {
+    if (!title || !institution || !period || !location) {
+      alert("Please fill out all fields of the course.");
+      return;
+    }
+
     const newCourses = [...courses];
     newCourses[index] = { title, institution, period, location };
     setCourses(newCourses);
@@ -47,10 +52,10 @@ function Courses() {
     setCourses([
       ...courses,
       {
-        title: "New Course",
-        institution: "New Institution",
-        period: "New Period",
-        location: "New Location",
+        title: "",
+        institution: "",
+        period: "",
+        location: "",
       },
     ]);
     setIsEditing(true);
@@ -92,6 +97,7 @@ function Courses() {
                           defaultValue={course.title}
                           onChange={(e) => (course.title = e.target.value)}
                           className="border border-black"
+                          placeholder="Course Title"
                         />
                       ) : (
                         <h3 className="text-xl font-bold">{course.title}</h3>
@@ -103,10 +109,13 @@ function Courses() {
                             (course.institution = e.target.value)
                           }
                           className="border border-black"
+                          placeholder="Institution"
                         />
                       ) : (
                         <h4 className="font-semibold text-slate-800">
-                          <span className="font-medium text-slate-700">at</span>{" "}
+                          <span className="italic font-medium text-slate-700">
+                            at
+                          </span>{" "}
                           {course.institution}
                         </h4>
                       )}
@@ -117,6 +126,7 @@ function Courses() {
                           defaultValue={course.period}
                           onChange={(e) => (course.period = e.target.value)}
                           className="border border-black"
+                          placeholder="Period"
                         />
                       ) : (
                         <p className="italic text-sm text-slate-600">
@@ -128,6 +138,7 @@ function Courses() {
                           defaultValue={course.location}
                           onChange={(e) => (course.location = e.target.value)}
                           className="border border-black"
+                          placeholder="Location"
                         />
                       ) : (
                         <p className="italic text-sm text-slate-600">

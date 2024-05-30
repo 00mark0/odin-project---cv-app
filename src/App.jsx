@@ -23,6 +23,7 @@ function App() {
       const input2 = document.getElementById("printable-area-2");
 
       const pdf = new jsPDF("p", "mm", "a4");
+      const pdfHeightMM = pdf.internal.pageSize.getHeight();
 
       html2canvas(input1, { scale: 2 }).then((canvas1) => {
         const imgData1 = canvas1.toDataURL("image/png");
@@ -35,8 +36,16 @@ function App() {
           const imgData2 = canvas2.toDataURL("image/png");
           const imgProps2 = pdf.getImageProperties(imgData2);
           const pdfHeight2 = (imgProps2.height * pdfWidth) / imgProps2.width;
-          pdf.addPage();
-          pdf.addImage(imgData2, "PNG", 0, 0, pdfWidth, pdfHeight2);
+
+          // Check if the content can fit on one page
+          if (pdfHeight1 + pdfHeight2 <= pdfHeightMM) {
+            // If it can, add the second image to the first page
+            pdf.addImage(imgData2, "PNG", 0, pdfHeight1, pdfWidth, pdfHeight2);
+          } else {
+            // If it can't, add a new page and add the second image to the second page
+            pdf.addPage();
+            pdf.addImage(imgData2, "PNG", 0, 0, pdfWidth, pdfHeight2);
+          }
 
           pdf.save("download.pdf");
           setIsPrinting(false);

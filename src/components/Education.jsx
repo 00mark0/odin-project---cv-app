@@ -19,10 +19,10 @@ function Education() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    setTitle(localStorage.getItem("title") || "Economics Technician");
-    setSchool(localStorage.getItem("school") || "Macvanska Srednja Skola");
-    setYear(localStorage.getItem("year") || "2015 - 2019");
-    setLocation(localStorage.getItem("location") || "Bogatić, Serbia");
+    setTitle(localStorage.getItem("title") || "");
+    setSchool(localStorage.getItem("school") || "");
+    setYear(localStorage.getItem("year") || "");
+    setLocation(localStorage.getItem("location") || "");
   }, []);
 
   const handleSave = () => {
@@ -43,8 +43,8 @@ function Education() {
           <div className="border-l border-black col-span-4 px-3">
             <ul>
               <li>
-                <div>
-                  <div>
+                <div className="grid grid-cols-1 lg:grid-cols-5 lg:gap-48 mb-3 mt-6">
+                  <div className="flex flex-col col-span-3">
                     {isEditing ? (
                       <input
                         value={title}
@@ -52,7 +52,7 @@ function Education() {
                         className="border border-black"
                       />
                     ) : (
-                      <h3 className="font-bold">{title}</h3>
+                      <h3 className="text-xl font-bold">{title}</h3>
                     )}
                     {isEditing ? (
                       <input
@@ -61,12 +61,15 @@ function Education() {
                         className="border border-black"
                       />
                     ) : (
-                      <h4 className="italic">
-                        <span>at</span> {school}
+                      <h4 className="font-semibold text-slate-800">
+                        <span className="italic font-medium text-slate-700">
+                          at
+                        </span>{" "}
+                        {school}
                       </h4>
                     )}
                   </div>
-                  <div>
+                  <div className="col-span-2">
                     {isEditing ? (
                       <input
                         value={year}
@@ -74,7 +77,7 @@ function Education() {
                         className="border border-black"
                       />
                     ) : (
-                      <p>{year}</p>
+                      <p className="italic text-sm text-slate-600">{year}</p>
                     )}
                     {isEditing ? (
                       <input
@@ -83,31 +86,31 @@ function Education() {
                         className="border border-black"
                       />
                     ) : (
-                      <p className="mb-3">{location}</p>
+                      <p className="italic text-sm text-slate-600 mb-3">
+                        {location}
+                      </p>
                     )}
                   </div>
-                  {!isPrinting && (
-                    <div>
-                      <button
-                        onClick={
-                          isEditing ? handleSave : () => setIsEditing(true)
-                        }
-                        className="mr-2"
-                      >
-                        {isEditing ? (
-                          <FontAwesomeIcon icon={faCheck} />
-                        ) : (
-                          <FontAwesomeIcon icon={faEdit} />
-                        )}
-                      </button>
-                      <button onClick={() => setIsVisible(!isVisible)}>
-                        <FontAwesomeIcon
-                          icon={isVisible ? faEyeSlash : faEye}
-                        />
-                      </button>
-                    </div>
-                  )}
                 </div>
+                {!isPrinting && (
+                  <div>
+                    <button
+                      onClick={
+                        isEditing ? handleSave : () => setIsEditing(true)
+                      }
+                      className="mr-2"
+                    >
+                      {isEditing ? (
+                        <FontAwesomeIcon icon={faCheck} />
+                      ) : (
+                        <FontAwesomeIcon icon={faEdit} />
+                      )}
+                    </button>
+                    <button onClick={() => setIsVisible(!isVisible)}>
+                      <FontAwesomeIcon icon={isVisible ? faEyeSlash : faEye} />
+                    </button>
+                  </div>
+                )}
               </li>
             </ul>
           </div>

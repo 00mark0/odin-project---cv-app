@@ -200,7 +200,7 @@ function Projects() {
                               {project.title}
                             </h3>
                             <h4 className="font-semibold text-slate-800">
-                              <span className="font-medium text-slate-700">
+                              <span className="italic font-medium text-slate-700">
                                 role
                               </span>{" "}
                               {project.company}
