@@ -75,7 +75,7 @@ function App() {
               <input
                 id="offset"
                 type="range"
-                min="0"
+                min="-10"
                 max="30"
                 value={offset}
                 onChange={(e) => setOffset(Number(e.target.value))}
