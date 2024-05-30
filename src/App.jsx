@@ -7,6 +7,7 @@ import Skills from "./components/Skills";
 import Education from "./components/Education";
 import Courses from "./components/Courses";
 import Employments from "./components/Employment";
+import Projects from "./components/Projects";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -45,6 +46,7 @@ function App() {
             <Education />
             <Courses />
             <Employments />
+            <Projects />
           </div>
           <button className="ml-10" onClick={printDocument}>
             Download as PDF

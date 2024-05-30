@@ -10,21 +10,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { PrintContext } from "../App";
 
-function Employments() {
+function Projects() {
   const isPrinting = useContext(PrintContext);
-  const [employments, setEmployments] = useState(() => {
-    const localData = localStorage.getItem("employments");
+  const [projects, setProjects] = useState(() => {
+    const localData = localStorage.getItem("projects");
     return localData ? JSON.parse(localData) : [];
   });
   const [editing, setEditing] = useState(null);
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem("employments", JSON.stringify(employments));
-  }, [employments]);
+    localStorage.setItem("projects", JSON.stringify(projects));
+  }, [projects]);
 
-  const addEmployment = () => {
-    const newEmployment = {
+  const addProjects = () => {
+    const newProject = {
       title: "",
       company: "",
       period: "",
@@ -32,47 +32,39 @@ function Employments() {
       description: "",
       responsibilities: [""],
     };
-    setEmployments([...employments, newEmployment]);
-    setEditing(employments.length);
+    setProjects([...projects, newProject]);
+    setEditing(projects.length);
   };
 
-  const removeEmployment = (index) => {
-    const newEmployments = [...employments];
-    newEmployments.splice(index, 1);
-    setEmployments(newEmployments);
+  const removeProjects = (index) => {
+    const newProjects = [...projects];
+    newProjects.splice(index, 1);
+    setProjects(newProjects);
     if (editing === index) setEditing(null);
   };
 
-  const updateEmployment = (index, field, value) => {
-    const newEmployments = [...employments];
-    newEmployments[index][field] = value;
-    setEmployments(newEmployments);
+  const updateProject = (index, field, value) => {
+    const newProjects = [...projects];
+    newProjects[index][field] = value;
+    setProjects(newProjects);
   };
 
   const addResponsibility = (index) => {
-    const newEmployments = [...employments];
-    newEmployments[index].responsibilities.push("");
-    setEmployments(newEmployments);
+    const newProjects = [...projects];
+    newProjects[index].responsibilities.push("");
+    setProjects(newProjects);
   };
 
-  const removeResponsibility = (employmentIndex, responsibilityIndex) => {
-    const newEmployments = [...employments];
-    newEmployments[employmentIndex].responsibilities.splice(
-      responsibilityIndex,
-      1
-    );
-    setEmployments(newEmployments);
+  const removeResponsibility = (projectIndex, responsibilityIndex) => {
+    const newProjects = [...projects];
+    newProjects[projectIndex].responsibilities.splice(responsibilityIndex, 1);
+    setProjects(newProjects);
   };
 
-  const updateResponsibility = (
-    employmentIndex,
-    responsibilityIndex,
-    value
-  ) => {
-    const newEmployments = [...employments];
-    newEmployments[employmentIndex].responsibilities[responsibilityIndex] =
-      value;
-    setEmployments(newEmployments);
+  const updateResponsibility = (projectIndex, responsibilityIndex, value) => {
+    const newProjects = [...projects];
+    newProjects[projectIndex].responsibilities[responsibilityIndex] = value;
+    setProjects(newProjects);
   };
 
   return (
@@ -83,125 +75,112 @@ function Employments() {
         </button>
       )}
       {isVisible && (
-        <section
-          id="employments"
-          className="grid grid-cols-5 gap-4 h-auto py-4"
-        >
+        <section id="projects" className="grid grid-cols-5 gap-4 h-auto py-4">
           <h2 className="font-bold text-green-700 text-2xl col-span-3 lg:col-span-1">
-            Employments
+            Projects
           </h2>
           <div className="border-l border-black col-span-4 px-3">
             <ul>
-              {employments.map((employment, index) => (
+              {projects.map((project, index) => (
                 <li key={index}>
                   <div>
                     {editing === index ? (
                       <>
                         <input
                           type="text"
-                          value={employment.title}
+                          value={project.title}
                           onChange={(e) =>
-                            updateEmployment(index, "title", e.target.value)
+                            updateProject(index, "title", e.target.value)
                           }
-                          placeholder="Job Title"
+                          placeholder="Project Title"
                           className="border border-black"
                         />
                         <input
                           type="text"
-                          value={employment.company}
+                          value={project.company}
                           onChange={(e) =>
-                            updateEmployment(index, "company", e.target.value)
+                            updateProject(index, "company", e.target.value)
                           }
-                          placeholder="Company"
+                          placeholder="Role"
                           className="border border-black"
                         />
                         <input
                           type="text"
-                          value={employment.period}
+                          value={project.period}
                           onChange={(e) =>
-                            updateEmployment(index, "period", e.target.value)
+                            updateProject(index, "period", e.target.value)
                           }
-                          placeholder="Employment Period"
+                          placeholder="Project Period"
                           className="border border-black"
                         />
                         <input
                           type="text"
-                          value={employment.location}
+                          value={project.location}
                           onChange={(e) =>
-                            updateEmployment(index, "location", e.target.value)
+                            updateProject(index, "location", e.target.value)
                           }
                           placeholder="Location"
                           className="border border-black"
                         />
                         <textarea
-                          value={employment.description}
+                          value={project.description}
                           onChange={(e) =>
-                            updateEmployment(
-                              index,
-                              "description",
-                              e.target.value
-                            )
+                            updateProject(index, "description", e.target.value)
                           }
                           placeholder="Description"
                           className="border border-black w-64 h-52 md:w-96 rounded-md p-2 mt-2"
                         />
                         <ul>
                           <h5>Responsibilities</h5>
-                          {employment.responsibilities.map(
-                            (responsibility, i) => (
-                              <li key={i}>
-                                <input
-                                  type="text"
-                                  value={responsibility}
-                                  onChange={(e) =>
-                                    updateResponsibility(
-                                      index,
-                                      i,
-                                      e.target.value
-                                    )
-                                  }
-                                  placeholder="Responsibility"
-                                  className="border border-black"
-                                />
-                                {!isPrinting && (
-                                  <>
-                                    <button
-                                      onClick={() => addResponsibility(index)}
-                                      className="mr-2 ml-1"
-                                    >
-                                      <FontAwesomeIcon icon={faPlus} />
-                                    </button>
-                                    <button
-                                      onClick={() =>
-                                        removeResponsibility(index, i)
-                                      }
-                                    >
-                                      <FontAwesomeIcon icon={faMinus} />
-                                    </button>
-                                  </>
-                                )}
-                              </li>
-                            )
-                          )}
+                          {project.responsibilities.map((responsibility, i) => (
+                            <li key={i}>
+                              <input
+                                type="text"
+                                value={responsibility}
+                                onChange={(e) =>
+                                  updateResponsibility(index, i, e.target.value)
+                                }
+                                placeholder="Responsibility"
+                                className="border border-black"
+                              />
+                              {!isPrinting && (
+                                <>
+                                  <button
+                                    onClick={() => addResponsibility(index)}
+                                    className="mr-2 ml-1"
+                                  >
+                                    <FontAwesomeIcon icon={faPlus} />
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      removeResponsibility(index, i)
+                                    }
+                                  >
+                                    <FontAwesomeIcon icon={faMinus} />
+                                  </button>
+                                </>
+                              )}
+                            </li>
+                          ))}
                         </ul>
                         {!isPrinting && (
                           <button
                             onClick={() => {
-                              if (employments.length > 0) {
-                                const lastEmployment =
-                                  employments[employments.length - 1];
+                              if (projects.length > 0) {
+                                const lastProject =
+                                  projects[projects.length - 1];
                                 if (
-                                  !lastEmployment.title ||
-                                  !lastEmployment.company ||
-                                  !lastEmployment.period ||
-                                  !lastEmployment.location ||
-                                  !lastEmployment.description ||
-                                  lastEmployment.responsibilities.some(
+                                  !lastProject.title ||
+                                  !lastProject.company ||
+                                  !lastProject.period ||
+                                  !lastProject.location ||
+                                  !lastProject.description ||
+                                  lastProject.responsibilities.some(
                                     (resp) => !resp
                                   )
                                 ) {
                                   alert(
-                                    "Please fill out all the fields of the employment."
+                                    "Please fill out all the fields of the project."
                                   );
                                   return;
                                 }
@@ -218,29 +197,29 @@ function Employments() {
                         <div className="grid grid-cols-1 lg:grid-cols-5 lg:gap-48 mb-3 mt-6">
                           <div className="flex flex-col col-span-3">
                             <h3 className="text-xl font-bold">
-                              {employment.title}
+                              {project.title}
                             </h3>
                             <h4 className="font-semibold text-slate-800">
                               <span className="font-medium text-slate-700">
-                                at
+                                role
                               </span>{" "}
-                              {employment.company}
+                              {project.company}
                             </h4>
                           </div>
                           <div className="col-span-2">
                             <p className="italic text-sm text-slate-600">
-                              {employment.period}
+                              {project.period}
                             </p>
                             <p className="italic text-sm text-slate-600">
-                              {employment.location}
+                              {project.location}
                             </p>
                           </div>
                         </div>
                         <div>
-                          <p className="mb-3">{employment.description}</p>
+                          <p className="mb-3">{project.description}</p>
                           <b>Responsibilities:</b>
                           <ul className="list-disc list-inside ml-3">
-                            {employment.responsibilities.map(
+                            {project.responsibilities.map(
                               (responsibility, i) => (
                                 <li key={i}>{responsibility}</li>
                               )
@@ -259,7 +238,7 @@ function Employments() {
                     )}
                     {!isPrinting && (
                       <button
-                        onClick={() => removeEmployment(index)}
+                        onClick={() => removeProjects(index)}
                         className="ml-2"
                       >
                         <FontAwesomeIcon icon={faMinus} />
@@ -270,7 +249,7 @@ function Employments() {
               ))}
             </ul>
             {!isPrinting && editing === null && (
-              <button onClick={addEmployment}>
+              <button onClick={addProjects}>
                 <FontAwesomeIcon icon={faPlus} />
               </button>
             )}
@@ -281,4 +260,4 @@ function Employments() {
   );
 }
 
-export default Employments;
+export default Projects;
