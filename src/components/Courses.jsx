@@ -67,7 +67,7 @@ function Courses() {
       {!isPrinting && (
         <div className="flex justify-end">
           {isVisible && (
-            <button onClick={handleAdd}>
+            <button onClick={handleAdd} className="mr-2">
               <FontAwesomeIcon icon={faPlus} />
             </button>
           )}
@@ -91,6 +91,7 @@ function Courses() {
                         <input
                           defaultValue={course.title}
                           onChange={(e) => (course.title = e.target.value)}
+                          className="border border-black"
                         />
                       ) : (
                         <h3 className="text-xl font-bold">{course.title}</h3>
@@ -101,6 +102,7 @@ function Courses() {
                           onChange={(e) =>
                             (course.institution = e.target.value)
                           }
+                          className="border border-black"
                         />
                       ) : (
                         <h4 className="font-semibold text-slate-800">
@@ -114,6 +116,7 @@ function Courses() {
                         <input
                           defaultValue={course.period}
                           onChange={(e) => (course.period = e.target.value)}
+                          className="border border-black"
                         />
                       ) : (
                         <p className="italic text-sm text-slate-600">
@@ -124,9 +127,10 @@ function Courses() {
                         <input
                           defaultValue={course.location}
                           onChange={(e) => (course.location = e.target.value)}
+                          className="border border-black"
                         />
                       ) : (
-                        <p className="italic text-slate-600">
+                        <p className="italic text-sm text-slate-600">
                           {course.location}
                         </p>
                       )}

@@ -49,6 +49,7 @@ function Education() {
                       <input
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        className="border border-black"
                       />
                     ) : (
                       <h3 className="font-bold">{title}</h3>
@@ -57,6 +58,7 @@ function Education() {
                       <input
                         value={school}
                         onChange={(e) => setSchool(e.target.value)}
+                        className="border border-black"
                       />
                     ) : (
                       <h4 className="italic">
@@ -69,6 +71,7 @@ function Education() {
                       <input
                         value={year}
                         onChange={(e) => setYear(e.target.value)}
+                        className="border border-black"
                       />
                     ) : (
                       <p>{year}</p>
@@ -77,6 +80,7 @@ function Education() {
                       <input
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
+                        className="border border-black"
                       />
                     ) : (
                       <p className="mb-3">{location}</p>
@@ -109,7 +113,7 @@ function Education() {
           </div>
         </section>
       )}
-      {!isVisible && (
+      {!isPrinting && !isVisible && (
         <button onClick={() => setIsVisible(!isVisible)}>
           <FontAwesomeIcon icon={isVisible ? faEyeSlash : faEye} />
         </button>
