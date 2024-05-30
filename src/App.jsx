@@ -37,12 +37,9 @@ function App() {
           const imgProps2 = pdf.getImageProperties(imgData2);
           const pdfHeight2 = (imgProps2.height * pdfWidth) / imgProps2.width;
 
-          // Check if the content can fit on one page
           if (pdfHeight1 + pdfHeight2 <= pdfHeightMM) {
-            // If it can, add the second image to the first page
             pdf.addImage(imgData2, "PNG", 0, pdfHeight1, pdfWidth, pdfHeight2);
           } else {
-            // If it can't, add a new page and add the second image to the second page
             pdf.addPage();
             pdf.addImage(imgData2, "PNG", 0, 0, pdfWidth, pdfHeight2);
           }
