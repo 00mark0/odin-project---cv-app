@@ -15,6 +15,7 @@ export const PrintContext = React.createContext();
 
 function App() {
   const [isPrinting, setIsPrinting] = useState(false);
+  const [offset, setOffset] = useState(10);
 
   const printDocument = () => {
     setIsPrinting(true);
@@ -32,7 +33,7 @@ function App() {
 
         for (let i = 0; i < totalPDFPages; i++) {
           if (i !== 0) pdf.addPage();
-          const srcY = i * pdfHeightMM - 10; // adjust this value to avoid cutting off content
+          const srcY = i * pdfHeightMM - offset;
           pdf.addImage(
             imgData,
             "PNG",
@@ -54,7 +55,7 @@ function App() {
   return (
     <PrintContext.Provider value={isPrinting}>
       <div className="min-h-screen w-full flex justify-center">
-        <div className="md:w-7/12">
+        <div className="md:w-7/12 pb-6">
           <div id="printable-area-1" className="mb-6 p-10">
             <Info />
             <hr />
@@ -66,12 +67,29 @@ function App() {
             <Employments />
             <Projects />
           </div>
-          <button
-            className="ml-10 bg-blue-500 hover:bg-blue-700 transition duration-300 ease-in-out text-white font-bold py-2 px-4 rounded mb-3"
-            onClick={printDocument}
-          >
-            Download as PDF
-          </button>
+          <div className="flex">
+            <div className="flex flex-col justify-center items-center">
+              <label htmlFor="offset" className="mr-2">
+                Offset:
+              </label>
+              <input
+                id="offset"
+                type="range"
+                min="0"
+                max="30"
+                value={offset}
+                onChange={(e) => setOffset(Number(e.target.value))}
+                title="Adjust the offset to avoid cutting off the content in the PDF."
+              />
+              <span className="ml-2">{offset}</span>
+            </div>
+            <button
+              className="ml-10 bg-blue-500 hover:bg-blue-700 transition duration-300 ease-in-out text-white font-bold py-2 px-4 rounded mb-3"
+              onClick={printDocument}
+            >
+              Download as PDF
+            </button>
+          </div>
         </div>
       </div>
     </PrintContext.Provider>
