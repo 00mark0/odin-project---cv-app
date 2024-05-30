@@ -19,16 +19,28 @@ function App() {
   const printDocument = () => {
     setIsPrinting(true);
     setTimeout(() => {
-      const input = document.getElementById("printable-area");
-      html2canvas(input, { scale: 2 }).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF("p", "mm", "a4");
-        const imgProps = pdf.getImageProperties(imgData);
+      const input1 = document.getElementById("printable-area-1");
+      const input2 = document.getElementById("printable-area-2");
+
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      html2canvas(input1, { scale: 2 }).then((canvas1) => {
+        const imgData1 = canvas1.toDataURL("image/png");
+        const imgProps1 = pdf.getImageProperties(imgData1);
         const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-        pdf.save("download.pdf");
-        setIsPrinting(false);
+        const pdfHeight1 = (imgProps1.height * pdfWidth) / imgProps1.width;
+        pdf.addImage(imgData1, "PNG", 0, 0, pdfWidth, pdfHeight1);
+
+        html2canvas(input2, { scale: 2 }).then((canvas2) => {
+          const imgData2 = canvas2.toDataURL("image/png");
+          const imgProps2 = pdf.getImageProperties(imgData2);
+          const pdfHeight2 = (imgProps2.height * pdfWidth) / imgProps2.width;
+          pdf.addPage();
+          pdf.addImage(imgData2, "PNG", 0, 0, pdfWidth, pdfHeight2);
+
+          pdf.save("download.pdf");
+          setIsPrinting(false);
+        });
       });
     }, 0);
   };
@@ -37,7 +49,7 @@ function App() {
     <PrintContext.Provider value={isPrinting}>
       <div className="min-h-screen w-full flex justify-center">
         <div className="md:w-7/12">
-          <div id="printable-area" className="mb-6 p-10">
+          <div id="printable-area-1" className="mb-6 p-10">
             <Info />
             <hr />
             <Summary />
@@ -46,9 +58,14 @@ function App() {
             <Education />
             <Courses />
             <Employments />
+          </div>
+          <div id="printable-area-2" className="mb-6 p-10">
             <Projects />
           </div>
-          <button className="ml-10" onClick={printDocument}>
+          <button
+            className="ml-10 bg-blue-500 hover:bg-blue-700 transition duration-300 ease-in-out text-white font-bold py-2 px-4 rounded mb-3"
+            onClick={printDocument}
+          >
             Download as PDF
           </button>
         </div>
