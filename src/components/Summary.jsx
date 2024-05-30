@@ -40,6 +40,7 @@ function Summary() {
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
               className="border border-black w-28 h-52 md:w-96 rounded-md p-2"
+              placeholder="Write a summary about yourself"
             />
             <button type="submit" className="md:ml-3">
               <FontAwesomeIcon icon={faCheck} />

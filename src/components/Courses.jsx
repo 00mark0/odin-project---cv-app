@@ -22,12 +22,6 @@ function Courses() {
         period: "",
         location: "",
       },
-      {
-        title: "",
-        institution: "",
-        period: "",
-        location: "",
-      },
     ]
   );
   const [isVisible, setIsVisible] = useState(true);
@@ -161,6 +155,7 @@ function Courses() {
                               )
                             : setIsEditing(true)
                         }
+                        className="mr-2"
                       >
                         {isEditing ? (
                           <FontAwesomeIcon icon={faCheck} />

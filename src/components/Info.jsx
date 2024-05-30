@@ -58,6 +58,7 @@ function Info() {
             onChange={(e) => setName(e.target.value)}
             onClick={(e) => e.preventDefault()}
             className="text-4xl border border-black w-64 md:w-96 rounded-md"
+            placeholder="Your Name"
           />
         ) : (
           <h1 className="text-4xl">{name}</h1>
@@ -69,6 +70,7 @@ function Info() {
             onChange={(e) => setJob(e.target.value)}
             onClick={(e) => e.preventDefault()}
             className="text-2xl border border-black w-64 md:w-96 text-green-700 font-bold rounded-md"
+            placeholder="Your Job Title"
           />
         ) : (
           <h2 className="font-bold text-green-700 text-2xl">{job}</h2>
@@ -98,6 +100,7 @@ function Info() {
                 onChange={(e) => setEmail(e.target.value)}
                 onClick={(e) => e.preventDefault()}
                 className="border border-black rounded-md ml-1"
+                placeholder="Your Email Address"
               />
             ) : (
               <span className="ml-1">{email}</span>
@@ -126,6 +129,7 @@ function Info() {
                 onChange={(e) => setPhone(formatPhone(e.target.value))}
                 onClick={(e) => e.preventDefault()}
                 className="border border-black rounded-md ml-1"
+                placeholder="Your Phone Number"
               />
             ) : (
               <span className="ml-1">{formatPhone(phone)}</span>

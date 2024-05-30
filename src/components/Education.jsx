@@ -50,6 +50,7 @@ function Education() {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         className="border border-black"
+                        placeholder="Degree"
                       />
                     ) : (
                       <h3 className="text-xl font-bold">{title}</h3>
@@ -59,6 +60,7 @@ function Education() {
                         value={school}
                         onChange={(e) => setSchool(e.target.value)}
                         className="border border-black"
+                        placeholder="School"
                       />
                     ) : (
                       <h4 className="font-semibold text-slate-800">
@@ -75,6 +77,7 @@ function Education() {
                         value={year}
                         onChange={(e) => setYear(e.target.value)}
                         className="border border-black"
+                        placeholder="Period"
                       />
                     ) : (
                       <p className="italic text-sm text-slate-600">{year}</p>
@@ -84,6 +87,7 @@ function Education() {
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                         className="border border-black"
+                        placeholder="Location"
                       />
                     ) : (
                       <p className="italic text-sm text-slate-600 mb-3">

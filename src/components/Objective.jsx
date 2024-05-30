@@ -38,6 +38,7 @@ function Objective() {
             value={paragraph1}
             onChange={(e) => setParagraph1(e.target.value)}
             className="border border-black w-28 h-52 md:w-96 rounded-md p-2"
+            placeholder="Write a career objective"
           />
         ) : (
           <p>{paragraph1}</p>
@@ -48,6 +49,7 @@ function Objective() {
             value={paragraph2}
             onChange={(e) => setParagraph2(e.target.value)}
             className="border border-black w-28 h-52 md:w-96 rounded-md p-2"
+            placeholder="Write a career objective"
           />
         ) : (
           <p className="mb-3">{paragraph2}</p>
