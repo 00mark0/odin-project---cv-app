@@ -44,7 +44,7 @@ function App() {
             pdf.addImage(imgData2, "PNG", 0, 0, pdfWidth, pdfHeight2);
           }
 
-          pdf.save("download.pdf");
+          pdf.save("yourCV.pdf");
           setIsPrinting(false);
         });
       });
